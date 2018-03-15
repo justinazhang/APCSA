@@ -74,12 +74,10 @@ public class Class
 
 	public String getStudentWithHighestAverage()
 	{
-		double high = Double.MIN_VALUE;
-		String hName ="";
+		int index =0;
 		for (int i =0;i<studentList.size();i++){
-			if(studentList.get(i).getAverage()>high){
-				hName=studentList.get(i).getName();
-				high = studentList.get(i).getAverage();
+			if(studentList.get(i).compareTo(studentList.get(i))==-1){
+				index =i;
 			}
 		}
 
@@ -87,17 +85,16 @@ public class Class
 
 
 
-		return hName;
+		return getStudentName(index);
 	}
 
 	public String getStudentWithLowestAverage()
 	{
 		double low = Double.MAX_VALUE;
-		String lName ="";		
+		int index=0;		
 		for (int i =0;i<studentList.size();i++){
-			if(low>studentList.get(i).getAverage()){
-				lName=studentList.get(i).getName();
-				low = studentList.get(i).getAverage();
+			if(studentList.get(i).compareTo(studentList.get(i))==1){
+			index = i;
 				
 			}
 		}
@@ -107,7 +104,7 @@ public class Class
 
 
 
-		return lName;
+		return getStudentName(index);
 	}
 	
 	public String getFailureList(double failingGrade)
@@ -135,4 +132,21 @@ public class Class
 
 		return output;
 	}  	 	
+	public void sort()
+
+	{
+
+		for (int i = 0; i < studentList.size()-1; i++) {
+
+			for (int j = 0; j < studentList.size()-1; j++) {
+				if(studentList.get(j).compareTo(studentList.get(j+1))==1)
+				{
+					Student temp = studentList.get(j);
+					studentList.set(j, studentList.get(j+1));
+					studentList.set(j+1, temp);
+				}
+
+			}}
+
+	}
 }
