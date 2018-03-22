@@ -71,13 +71,14 @@ public class Deck {
 		int randomInt;
 		Card temp;
 		
-		for (int i = size -1; i >0;i--){
-			randomInt=(int) (Math.random()*size);
+		for (int i = cards.size()-1; i >0;i--){
+			int j = i+1;
+			randomInt=(int) (Math.random()*j);
 			temp = cards.get(i);
-			cards.add(i,cards.get(randomInt));
-			cards.add(randomInt,temp);}
-		}
-		
+			cards.set(i,cards.get(randomInt));
+			cards.set(randomInt,temp);}
+	size =cards.size();	
+	}
 
 	/**
 	 * Deals a card from this deck.
