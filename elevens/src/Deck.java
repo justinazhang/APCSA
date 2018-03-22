@@ -1,12 +1,10 @@
-
-
 import java.util.List;
 import java.util.ArrayList;
 
 /**
  * The Deck class represents a shuffled deck of cards.
  * It provides several operations including
- *      initialize, shuffles, deal, and check if empty.
+ *      initialize, shuffle, deal, and check if empty.
  */
 public class Deck {
 
@@ -32,14 +30,17 @@ public class Deck {
 	 * @param values is an array containing all of the card point values.
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
+		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
+		
 		cards = new ArrayList<Card>();
-		for (int j = 0; j < ranks.length; j++) {
-			for (String suitString : suits) {
-				cards.add(new Card(ranks[j], suitString, values[j]));
-			}
-		}
-		size = cards.size();
-		shuffle();
+			for (int j = 0; j < ranks.length; j++) {
+				for(int i =0;i<suits.length;i++){
+				Card addcard = new Card(ranks[j],suits[i],values[j]);
+				cards.add(addcard);}
+			}		
+			size = ranks.length*suits.length;
+			shuffle();
+		
 	}
 
 
@@ -48,7 +49,10 @@ public class Deck {
 	 * @return true if this deck is empty, false otherwise.
 	 */
 	public boolean isEmpty() {
-		return size == 0;
+		if (cards.size() ==0)
+			return true;
+		else 
+			return false;
 	}
 
 	/**
@@ -64,16 +68,16 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		for (int k = cards.size() - 1; k > 0; k--) {
-			int howMany = k + 1;
-			int start = 0;
-			int randPos = (int) (Math.random() * howMany) + start;
-			Card temp = cards.get(k);
-			cards.set(k, cards.get(randPos));
-			cards.set(randPos, temp);
+		int randomInt;
+		Card temp;
+		
+		for (int i = size -1; i >0;i--){
+			randomInt=(int) (Math.random()*size);
+			temp = cards.get(i);
+			cards.add(i,cards.get(randomInt));
+			cards.add(randomInt,temp);}
 		}
-		size = cards.size();
-	}
+		
 
 	/**
 	 * Deals a card from this deck.
@@ -81,12 +85,14 @@ public class Deck {
 	 *         previously dealt.
 	 */
 	public Card deal() {
-		if (isEmpty()) {
-			return null;
+		
+		if (cards.size()>0){
+			size =size-1;
+			return cards.get(size);
 		}
-		size--;
-		Card c = cards.get(size);
-		return c;
+		else 
+			return null;
+		
 	}
 
 	/**
@@ -95,32 +101,32 @@ public class Deck {
 	 */
 	@Override
 	public String toString() {
-		String cardprop = "size = " + size + "\nUndealt cards: \n";
+		String output = "size = " + size + "\nUndealt cards: \n";
 
 		for (int k = size - 1; k >= 0; k--) {
-			cardprop = cardprop + cards.get(k);
+			output = output + cards.get(k);
 			if (k != 0) {
-				cardprop = cardprop + ", ";
+				output = output + ", ";
 			}
 			if ((size - k) % 2 == 0) {
 				// Insert carriage returns so entire deck is visible on console.
-				cardprop = cardprop + "\n";
+				output = output + "\n";
 			}
 		}
 
-		cardprop = cardprop + "\nDealt cards: \n";
+		output = output + "\nDealt cards: \n";
 		for (int k = cards.size() - 1; k >= size; k--) {
-			cardprop = cardprop + cards.get(k);
+			output = output + cards.get(k);
 			if (k != size) {
-				cardprop = cardprop + ", ";
+				output = output + ", ";
 			}
 			if ((k - cards.size()) % 2 == 0) {
 				// Insert carriage returns so entire deck is visible on console.
-				cardprop = cardprop + "\n";
+				output = output + "\n";
 			}
 		}
 
-		cardprop = cardprop + "\n";
-		return cardprop;
+		output = output + "\n";
+		return output;
 	}
 }
