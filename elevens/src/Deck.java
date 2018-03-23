@@ -87,7 +87,8 @@ public class Deck {
 	 */
 	public Card deal() {
 		
-		if (cards.size()>0){
+		if (size()>0){
+			System.out.println(size+" "+ cards.size());
 			size =size-1;
 			return cards.get(size);
 		}
