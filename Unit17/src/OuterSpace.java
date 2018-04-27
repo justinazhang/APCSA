@@ -20,7 +20,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 	
    private AlienHorde horde;
 	private Bullets shots;
-	
+	private Lifes life;
  
 	private boolean[] keys;
 	private BufferedImage back;
@@ -30,7 +30,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		horde = new AlienHorde(0);
 		shots = new Bullets();
 		ship = new Ship(380,380,40,40,2);
-		
+		life = new Lifes(0,0,20,20,1);
 		setBackground(Color.black);
 
 		keys = new boolean[5];
@@ -92,14 +92,17 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 			shots.add(new Ammo(ship.getX()+ship.getWidth()/2-5,ship.getY(),4));
 
 		}
+		
 		shots.moveEmAll();
 		shots.cleanEmUp();
 		shots.bulletSpacer();
 		horde.removeDeadOnes(shots.getList());
 		horde.moveEmAll();
-		
+		life.draw(graphToBack);
 		horde.drawEmAll(graphToBack);
 		ship.draw(graphToBack);
+		ship.loseLife(horde.getList());
+		ship.gainLife(life);
 		shots.drawEmAll(graphToBack);
 		//add code to move Ship, Alien, etc.
 		

@@ -9,13 +9,15 @@ import java.net.URL;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 
 public class Ship extends MovingThing
 {
 	private int speed;
 	private Image image;
-
+	private int life;
 	public Ship()
 	{
 		this(10,10,10,10,10);
@@ -46,12 +48,57 @@ public class Ship extends MovingThing
 		{
 			System.out.print("hello");
 		}
+		life = 3;
 	}
 
 
 	public void setSpeed(int s)
 	{
 	   speed=s;
+		if (life>0){
+			life--;
+			System.out.print(life);
+			}
+	}
+	public int getLife(){
+		return life;
+	}
+	public void loseLife(List<Alien> aliens){
+		
+		for (int j = 0; j < aliens.size(); j++) {
+		if (this.isCollide(aliens.get(j))) {
+				life--;
+				setX(400);
+				setY(400);
+				
+				}
+		if (life==0)
+				gameOver();
+				
+				}
+			}
+	public void gainLife(Lifes lif){
+		
+		if (this.isCollide(lif)) {
+			
+				life++;
+				
+				lif.move();
+				
+				
+				}
+		if (life==0)
+				gameOver();
+				
+				}
+			
+	
+		
+			
+	
+	private void gameOver() {
+		
+		
 	}
 
 	public int getSpeed()
